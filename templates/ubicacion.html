@@ -7,7 +7,11 @@
         <link rel="shortcut icon" href="/images/logo.png" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> 
         <link rel="stylesheet" href="/css/style.css">
-        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNZiGWCPZaKGTaETuLH-SSxh8A_wzX32Y"></script>        
+               
+        <script async
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNZiGWCPZaKGTaETuLH-SSxh8A_wzX32Y&callback=ubicacion_google_maps">
+        </script>
+
     </head> 
 
     <body>
@@ -40,8 +44,5 @@
             </div>
         </center>
         <script type="text/javascript" src="/js/ubicacion.js"></script>
-        <script async>
-            document.body.onload = ubicacion_google_maps();
-        </script>
     </body>
 </html>

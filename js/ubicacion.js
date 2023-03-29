@@ -1,5 +1,3 @@
-
-
 function ubicacion_google_maps() {
 
     var id = window.location.search.substring(1);
