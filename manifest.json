@@ -1,0 +1,37 @@
+{
+    "name": "Eventos BraLy",
+    "short_name": "BraLy",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#77FF33",
+    "theme_color": "#FFC300",
+    "description": "Eventos BraLy es una aplicación que te permite crear eventos y compartirlos con tus amigos.",
+    "author": "Brandon Balderas Lucas, Citlaly Salome Ordoñez Romero",
+    "orientation": "portrait-primary",
+    "icons": [{
+            "src": "/images/icons/icon-72x72.png",
+            "type": "image/png",
+            "sizes": "72x72"
+        },
+        {
+            "src": "/images/icons/icon-96x96.png",
+            "type": "image/png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "/images/icons/icon-128x128.png",
+            "type": "image/png",
+            "sizes": "128x128"
+        },
+        {
+            "src": "/images/icons/icon-152x152.png",
+            "type": "image/png",
+            "sizes": "152x152"
+        },
+        {
+            "src": "/images/icons/icon-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        }
+    ]
+}
