@@ -19,7 +19,7 @@ class Evento (BaseModel) :
     Fecha: str
     Hora: str
     Lugar: str
-    Costo: str
+    Costo: int
     Descripcion: str
     Imagen: str
 
@@ -29,7 +29,7 @@ class EventoUpdate (BaseModel) :
     Fecha: str
     Hora: str
     Lugar: str
-    Costo: str
+    Costo: int
     Descripcion: str
     Imagen: str
 
