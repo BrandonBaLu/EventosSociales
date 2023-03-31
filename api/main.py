@@ -1,8 +1,11 @@
-from fastapi import Depends, FastAPI , HTTPException, status
+from fastapi import Depends, FastAPI , HTTPException, status, Security
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 import pyrebase
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
+
 
 app = FastAPI()
 
@@ -30,6 +33,10 @@ class EventoUpdate (BaseModel) :
     Descripcion: str
     Imagen: str
 
+
+class UserIN(BaseModel):
+    email       : str
+    password    : str
     
 
 origins = [
@@ -64,7 +71,87 @@ firebaseConfig = {
 firebase = pyrebase.initialize_app(firebaseConfig)
 
 
+security = HTTPBasic()
+
+#Autenticacion
+@app.post("/auth/", response_model=Respuesta)
+async def auth(credentials: HTTPBasicCredentials = Depends(security)):
+    try:
+        auth = firebase.auth()
+        user = auth.sign_in_with_email_and_password(credentials.username, credentials.password)
+        response = {"message": "Autenticado"}
+        return response
+    except Exception as error:
+        print(f"Error: {error}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="No tienes permiso para ver estos datos",
+            headers={"WWW-Authenticate": "Basic"},        
+        )
     
+#Registra un usuario
+@app.post("/register/", response_model=Respuesta)
+async def register(user: UserIN):
+    try:
+        auth = firebase.auth()
+        user = auth.create_user_with_email_and_password(user.email, user.password)
+        response = {"message": "Usuario registrado"}
+        return response
+    except Exception as error:
+        print(f"Error: {error}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="No tienes permiso para ver estos datos",
+            headers={"WWW-Authenticate": "Basic"},        
+        )
+    
+#Obtiene un usuario por su id
+@app.get(
+    "/usuarios/{id_usuario}",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Regresa un usuario",
+    description="Regresa un usuario"
+)
+async def get_usuarios(id_usuario: str):
+    try:
+        db=firebase.database()
+        usuario = db.child("Usuarios").child(id_usuario).get().val()
+        response = {
+            "usuario": usuario
+        }
+        return response
+    except Exception as error:
+        print(f"Error: {error}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="No tienes permiso para ver estos datos",
+            headers={"WWW-Authenticate": "Basic"},        
+        )
+    
+#Obtiene una lista de usuarios registrados
+@app.get(
+    "/usuarios/",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Regresa una lista de usuarios",
+    description="Regresa una lista de usuarios"
+)
+async def get_usuarios():
+    try:
+        db=firebase.database()
+        usuarios = db.child("Usuarios").get().val()
+        response = {
+            "usuarios": usuarios
+        }
+        return response
+    except Exception as error:
+        print(f"Error: {error}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="No tienes permiso para ver estos datos",
+            headers={"WWW-Authenticate": "Basic"},        
+        )
+    
+
 #Obtiene una lista de eventos registrados
 @app.get(
     "/eventos/",

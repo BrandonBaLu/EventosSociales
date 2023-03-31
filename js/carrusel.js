@@ -87,3 +87,80 @@ self.addEventListener('notificationclick', function (event) {
             return clients.openWindow('/');
     }));
 });
+
+
+function imagenes_carrucel(){
+    var request = new XMLHttpRequest();
+    request.open('GET', "http://127.0.0.1:8000/eventos/");
+    request.setRequestHeader("Accept", "application/json");
+    request.setRequestHeader("content-type", "application/json");
+
+    const  carru   = document.getElementById("carru");
+
+    request.onload = () => {
+        // Almacena la respuesta en una variable, si es 202 es que se obtuvo correctamente
+        const response = request.responseText;
+        const json = JSON.parse(response);
+
+        console.log(json);
+
+        if (request.status === 401 || request.status === 403) {
+            alert(json.detail);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Algo salió mal!'
+            })
+        }
+        
+        else if (request.status == 202){
+            const response = request.responseText;
+            const parseo_json = JSON.parse(response);
+            //console.log(parseo_json);
+            var nombre = "";
+            var costo = "";
+            var imagen = "";
+            var id_product = "product_"
+            var cont = 0;
+            var concat = "";            
+
+            for (var key in parseo_json) {
+                for (var id in parseo_json[key]) {
+                    ///cuenta cuantos id hay en el json
+                    ids = Object.keys(parseo_json[key]).length;
+                    //console.log(ids);
+                    nombre = parseo_json[key][id].Nombre
+                    costo = parseo_json[key][id].Costo
+                    imagen = parseo_json[key][id].Imagen
+                    
+                    if (cont < ids) {
+                        cont = cont + 1;
+                        concat = id_product.concat(cont-1);    
+                        //console.log(concat);
+                        carru.innerHTML += '<div class="product" id="'+concat+'">'+
+                        '<img src="'+imagen+'" width="195" height="100"/>'+
+                        '<h5>'+nombre+'</h5>'+
+                        '<p>$'+costo+'</p>'+
+                        '</div>';    
+                    }                 
+                }
+            }
+        }
+    };
+    request.send();
+}
+
+
+/*funcion para buscar un evento en la pagina principal*/
+function buscar_evento(){
+    var request = new XMLHttpRequest();
+    request.open('GET', "http://127.0.0.1:8000/eventos/");
+    request.setRequestHeader("Accept", "application/json");
+    request.setRequestHeader("content-type", "application/json");
+
+    var busqueda = document.getElementById("busqueda").value;
+    const  carru   = document.getElementById("carru");
+
+    console.log(busqueda);
+
+}

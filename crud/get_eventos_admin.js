@@ -63,7 +63,7 @@ function getEventos() {
                     '</ul>' +
                     '</p>' +
                     '<p class="parrafos">' + descripcion + '</p>' +
-                    '<a class="btn btn-success btn-sm btn-block btn-lg" href="/templates/ubicacion.html?' + id + '">Ver más</a>' +
+                    '<a class="btn btn-success btn-sm" href="/admin/ver_evento?' + id + '">Detalles del evento</a>' +
                     '</div>' +
                     '</div>';                
                 }

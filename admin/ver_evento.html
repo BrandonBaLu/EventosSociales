@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+    <header>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ver Evento</title>
+        <link rel="shortcut icon" href="/images/logo.png">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/sweetalert2.min.css" media="screen"/>
+        <script type="text/javascript" src="/js/sweetalert2.all.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/crud/get_evento.js"></script>
+        <script type="text/javascript" src="/crud/delete_evento.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    </header>
+
+    <body>
+        <div class="navbar-default">
+            <a class="iconos" href="eventos.html"><i class="fa fa-fw fa-home"></i>Inicio</a> 
+            <center><h1 style="color:white;">Tú evento social</h1></center>
+        </div>
+        <div class="container mt-3">    
+            <br>
+            <div class="jumbotron">
+                <br>
+                <form id="form_cliente" action="">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <center><label for="nombre">Nombre del evento:</label></center>
+                                <br>
+                                <input type="text" id="nombre" name="nombre" class="form-control form-control-lg" readonly/>
+                                <br>
+                            </div>
+                            <div class="col-lg-6">
+                                <center><label for="fecha">Fecha:</label></center>
+                                <input type="text" id="fecha" name="fecha" class="form-control form-control-lg" readonly/>
+                                <br>
+                            </div>
+                            <div class="col-lg-6">
+                                <center><label for="hora">Hora:</label></center>
+                                <input type="text" id="hora" name="hora" class="form-control form-control-lg" readonly/>
+                                <br>
+                            </div>
+                            <div class="col-lg-6">
+                                <center><label for="lugar">Lugar:</label></center>
+                                <br>
+                                <input type="text" id="lugar" name="lugar" class="form-control form-control-lg" readonly/>
+                                <br>
+                            </div>
+                            <div class="col-lg-6">
+                                <center><label for="descripcion">Descripcion:</label></center>
+                               <textarea name="descripcion" id="descripcion" cols="63" rows="4" readonly></textarea>
+                                <br>
+                            </div>
+                            <div class="col-lg-12">
+                                <br>
+                                <center><label for="precio">Precio:</label></center>
+                                <input type="text" id="precio" name="precio" class="form-control form-control-lg" readonly />
+                                <br>
+                            </div>
+                            <div class="col-lg-6" >
+                               <center><img id="blah" class="img1" src="" alt=""></center> 
+                            </div>
+                        </div>
+                        <div class="col-lg-4" id="btn_actualizar" >
+                        </div>
+                        <div class="col-lg-4" id="btn_eliminar" >
+                        </div>
+                        <div class="col-lg-4" id="btn_regresar" >
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+    <script async>
+        document.body.onload = ver_evento();
+      </script>
+</html>
