@@ -37,7 +37,7 @@
     color: #ffffff;
     padding: 30px 15px;
     margin-bottom: 30px;
-    border-radius: 6px;
+    border-radius: 20px;
 }
 /*fondo para jumbotron index*/
 .jumbotron_color3 {
@@ -188,8 +188,8 @@ h1 {
 }
 
 #map { 
-    width: 800px; 
-    height: 500px; 
+    height: 600px; 
+    width: 100%;  
     margin: 0 auto;
 }
 
@@ -198,4 +198,8 @@ h1 {
     color: #ffffff;
     font-weight: 50;
     text-align: left;
+}
+
+.card_color{
+    background-color: #2684cb
 }

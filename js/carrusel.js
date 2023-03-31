@@ -88,7 +88,7 @@ self.addEventListener('notificationclick', function (event) {
     }));
 });
 
-
+/*Esta funcion se encarga de cargar las imagenes del carrusel de la pagina principal*/
 function imagenes_carrucel(){
     var request = new XMLHttpRequest();
     request.open('GET', "http://127.0.0.1:8000/eventos/");
@@ -98,11 +98,8 @@ function imagenes_carrucel(){
     const  carru   = document.getElementById("carru");
 
     request.onload = () => {
-        // Almacena la respuesta en una variable, si es 202 es que se obtuvo correctamente
         const response = request.responseText;
         const json = JSON.parse(response);
-
-        console.log(json);
 
         if (request.status === 401 || request.status === 403) {
             alert(json.detail);
@@ -116,7 +113,7 @@ function imagenes_carrucel(){
         else if (request.status == 202){
             const response = request.responseText;
             const parseo_json = JSON.parse(response);
-            //console.log(parseo_json);
+
             var nombre = "";
             var costo = "";
             var imagen = "";
@@ -138,7 +135,9 @@ function imagenes_carrucel(){
                         concat = id_product.concat(cont-1);    
                         //console.log(concat);
                         carru.innerHTML += '<div class="product" id="'+concat+'">'+
-                        '<img src="'+imagen+'" width="195" height="100"/>'+
+                        '<a class="navbar-brand" href="/templates/ubicacion.html?'+id+'">'+
+                            '<img src="'+imagen+'" class="d-inline-block align-top" alt="">'+
+                        '</a>'+
                         '<h5>'+nombre+'</h5>'+
                         '<p>$'+costo+'</p>'+
                         '</div>';    
@@ -151,16 +150,77 @@ function imagenes_carrucel(){
 }
 
 
-/*funcion para buscar un evento en la pagina principal*/
+/*Esta funcion se encarga de buscar los eventos que se encuentran en la base de datos*/
 function buscar_evento(){
     var request = new XMLHttpRequest();
     request.open('GET', "http://127.0.0.1:8000/eventos/");
     request.setRequestHeader("Accept", "application/json");
     request.setRequestHeader("content-type", "application/json");
+    
+    const  card_body   = document.getElementById("card_event");
+    const  busqueda    = document.getElementById("busqueda");
+    
+    const buscar = busqueda.value;
+    console.log(buscar);
 
-    var busqueda = document.getElementById("busqueda").value;
-    const  carru   = document.getElementById("carru");
+    request.onload = () => {
+        // Almacena la respuesta en una variable, si es 202 es que se obtuvo correctamente
+        const response = request.responseText;
+        const json = JSON.parse(response);
 
-    console.log(busqueda);
+        //console.log(json);
 
+        if (request.status === 401 || request.status === 403) {
+            alert(json.detail);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Algo salió mal!'
+            })
+        }
+        
+        else if (request.status == 202){
+            const response = request.responseText;
+            const parseo_json = JSON.parse(response);
+            //console.log(parseo_json);
+
+            for (var key in parseo_json) {
+                for (var id in parseo_json[key]) {
+                    //console.log(id);
+                    var nombre = parseo_json[key][id].Nombre
+                    var fecha = parseo_json[key][id].Fecha
+                    var hora = parseo_json[key][id].Hora
+                    var lugar = parseo_json[key][id].Lugar
+                    var costo = parseo_json[key][id].Costo
+                    var descripcion = parseo_json[key][id].Descripcion
+                    var imagen = parseo_json[key][id].Imagen
+                    
+                    if (nombre == buscar) {
+                        /*que se muestre solo ese evento*/
+                        card_body.innerHTML = '<center><div class="col-sm-4">'+
+                        '<div class="card-body card_color">'+
+                        '<img src="'+imagen+'" class="card-img-top img1" alt="...">'+
+                        '<h5 class="card-title">'+nombre+'</h5>'+
+                        '<br>'+
+                        '<p class="card-text">'+
+                        '<ul>'+
+                        '<li class="parrafos">Fecha: '+fecha+'</li>'+
+                        '<li class="parrafos">Hora: '+hora+'</li>'+
+                        '<li class="parrafos">Lugar: '+lugar+'</li>'+
+                        '<li class="parrafos">Costo: $'+costo+'</li>'+
+                        '</ul>'+
+                        '</p>'+
+                        '<p class="parrafos">'+descripcion+'</p>'+
+                        '<a class="btn btn-success btn-sm btn-block btn-lg" href="/templates/ubicacion.html?' + id + '">Ver más</a>' +
+                        '</div>'+
+                        '</div>'+
+                        '</center>';
+                    }               
+                }
+            }
+
+        }
+    };
+    request.send();
 }
+
