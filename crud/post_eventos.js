@@ -7,17 +7,19 @@ function Post_eventos() {
     let descripcion = document.getElementById("descripcion");
     let precio = document.getElementById("precio");
 
-    const file = document.getElementById("imagen").files[0];
-    const nombreImage = file.name;
+    const img = document.getElementById("blah");
+ 
+    //const file = document.getElementById("imagen").files[0];
+    //const nombreImage = file.name;
     
     //const imag_nombre = file.name.split(".")[0];
 
     //const imag_fecha = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-    const destino = "/images/eventos/";
+    //const destino = "/images/eventos/";
     //const renomb_imag = imag_nombre +"-" + imag_fecha + ".jpg" ;
     //console.log(renomb_imag);
-    const ruta = destino + nombreImage;
+    //const ruta = destino + nombreImage;
     //console.log(ruta);
     //console.log(renomb_imag);
 
@@ -27,7 +29,8 @@ function Post_eventos() {
     });*/
 
 
-
+    var ruta = img.src;
+    
     let payload = {
         "Nombre": nombre.value,
         "Fecha": fecha.value,
