@@ -63,7 +63,7 @@ function update_eventos() {
                 text: "",
                 type: "info"
             }).then(function() {
-                window.location = "/admin/ver_evento.html?" + id;
+                window.location = "/admin/templates/ver_evento.html?" + id;
             });
         }
     };

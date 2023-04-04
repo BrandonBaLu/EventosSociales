@@ -3,6 +3,9 @@
     "short_name": "BraLy",
     "start_url": "index.html",
     "display": "standalone",
+    "display_override": [
+        "window-controls-overlay"
+    ],
     "background_color": "#77FF33",
     "theme_color": "#FFC300",
     "description": "Eventos BraLy es una aplicación que te permite crear eventos y compartirlos con tus amigos.",

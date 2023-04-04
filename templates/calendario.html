@@ -12,16 +12,23 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/font-awesome.min.css">
         <link rel="stylesheet" href="/css/style.css">
-        <script src="https://use.fonticons.com/ffe176a3.js"></script>
+        <script type="text/javascript" src="/crud/get_eventos.js"></script>
+        
 
     </head>
 
     <body>
         <nav class="navbar navbar-light navbar-default">
             <a class="navbar-brand" href="#">
-                <img src="/images/logo.png" width="90" height="70" class="d-inline-block align-top" alt="">
+                <img src="/images/logo.png" width="90" height="70" class="d-inline-block align-top" alt="" href="/index.html">
             </a>
-            <a class="navbar-brand" style="background-color:white;" href="/index.html"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
+            <div class="row">
+                <div class="col-sm-4">
+                    <a href="/index.html" class="btn btn-success fa fa-home"> Inicio</a>
+                </div>
+                <div class="col-sm-4">
+                </div>
+            </div>
             <a class="navbar-brand">
                 <h1>Calendario de eventos</h1>
             </a>
@@ -42,113 +49,14 @@
             <br>
             <br>
             <div class="jumbotron text-center jumbotron_color">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="card jumbotron_color2">
-                            <div class="card-body">
-                                <img src="/gallery/bandida.jpg" alt="">
-                                <h5 class="card-title">La Bandida</h5>
-                                <p class="card-text">El evento en la Bandida es: Sabado 2 de abril a partir de las 8:00 pm</p>
-                                <a href="#" class="btn btn-primary">Detalle de evento</a>
-                            </div>
-                        </div>
+                <center>
+                    <div id="card_event" class="row">
                     </div>
-                    <div class="col-sm-4">
-                        <div class="card jumbotron_color2">
-                            <div class="card-body">
-                                <img src="/gallery/pragga.jpg" alt="">
-                                <h5 class="card-title">Pragga</h5>
-                                <p class="card-text">El evento de Pragga es: Viernes 23 de abril a partir de las 7:00 pm.</p>
-                                <!---<a href="#" class="btn btn-primary">Go somewhere</a>->
-                                <!-boton onclick-->
-                                <button type="button" class="btn btn-primary" id="click">Detalle de evento
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="card jumbotron_color2">
-                            <div class="card-body">
-                                <img src="/gallery/05.jpg" alt="">
-                                <h5 class="card-title">Expo Feria de Tulancingo</h5>
-                                <p class="card-text">La inaguración de la expo feria será el 23 de julio a partir de las 4:00 pm </p>
-                                <a href="#" class="btn btn-primary">Detalle de evento</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="card jumbotron_color2">
-                            <div class="card-body">
-                                <img src="/gallery/bandida.jpg" alt="">
-                                <h5 class="card-title">La Bandida</h5>
-                                <p class="card-text">Presentación de Banda MS 25 de Agosto.</p>
-                                <a href="#" class="btn btn-primary">Detalle de evento</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="card jumbotron_color2">
-                            <div class="card-body">
-                                <img src="/gallery/pragga.jpg" alt="">
-                                <h5 class="card-title">Pragga</h5>
-                                <p class="card-text">Noche de DJ's, 23 de Septiembre</p>
-                                <a href="#" class="btn btn-primary">Detalle de evento</a>
-                               
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="card jumbotron_color2">
-                            <div class="card-body">
-                                <img src="/gallery/05.jpg" alt="">
-                                <h5 class="card-title">Expo Feria de Tulancingo</h5>
-                                <p class="card-text">Exposición ganadera y de artesanias, 3 de Agosto</p>
-                                <a href="#" class="btn btn-primary">Detalle de evento</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="card jumbotron_color2">
-                            <div class="card-body">
-                                <img src="/gallery/bandida.jpg" alt="">
-                                <h5 class="card-title">La Bandida</h5>
-                                <p class="card-text">Edwin Luna y la Trakalosa de Monterrey, 4 de Octubre</p>
-                                <a href="#" class="btn btn-primary">Detalle de evento</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="card jumbotron_color2">
-                            <div class="card-body">
-                                <img src="/gallery/pragga.jpg" alt="">
-                                <h5 class="card-title">Pragga</h5>
-                                <p class="card-text">Noche de DJ'S y shots</p>
-                                <!---<a href="#" class="btn btn-primary">Go somewhere</a>->
-                                <!-boton onclick-->
-                                <button type="button" class="btn btn-primary" id="click">Detalle de evento
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="card jumbotron_color2">
-                            <div class="card-body">
-                                <img src="/gallery/05.jpg" alt="">
-                                <h5 class="card-title">Expo Feria de Tulancingo</h5>
-                                <p class="card-text">Los Acosta, 25 de Agosto</p>
-                                <a href="#" class="btn btn-primary">Detalle de evento</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                  </center>
             </div>
-        </div>
 
     </body>
-
-</html>|
+    <script async>
+        document.body.onload = getEventos();
+    </script>
+</html>

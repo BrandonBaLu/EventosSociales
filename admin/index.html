@@ -1,0 +1,116 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>BraLy</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="shortcut icon" href="/images/logo.png" type="image/x-icon"> 
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <center><h1 style="color:white;">Social Events</h1></center>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active">
+          <img src="/images/logo.png" alt="logo" style="width:80px;">
+          <br>
+          <br>
+        </li>
+        <li><a href="/templates/calendario.html"><span class="glyphicon glyphicon-calendar"></span>Calendario clientes</a></li>
+        <li><a href="/templates/eventos.html"><span class="glyphicon glyphicon-list-alt"></span>Eventos clientes</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/admin/templates/registro.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="/admin/templates/login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container">
+  <h3>Collapsible Navbar</h3>
+  <p>In this example, the navigation bar is hidden on small screens and replaced by a button in the top right corner (try to re-size this window).
+  <p>Only when the button is clicked, the navigation bar will be displayed.</p>
+</div>
+
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Eventos Registrados</title>
+        <meta name="description" content="Eventos Sociales" />
+        <meta name="author" content=" Citlaly SaLlome Ordoñez Romero & Brandon Balderas Lucas">
+        <link rel="shortcut icon" href="/images/logo.png" type="image/x-icon"> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <script type="text/javascript" src="/crud/get_eventos_admin.js"></script>
+        
+    </head>
+
+    <body>
+        <nav class="navbar navbar-default">
+      <div class="row">
+        <div class="col-sm-4">
+          <a class="navbar-brand" href="index.html">
+            <img src="/images/logo.png" width="90" height="70" class="d-inline-block align-top" alt="">
+          </a>
+        </div>
+        <div class="col-sm-4">
+          <br>
+          <a href="/admin/templates/crear_evento.html" class="text-decoration-none">
+            <button type="button" class="btn btn-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-date" viewBox="0 0 16 16">
+                <path d="M6.445 12.688V7.354h-.633A12.6 12.6 0 0 0 4.5 8.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/>
+                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+                <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/>
+              </svg>
+              Crear Evento
+            </button>
+          </a>
+        </div>
+        <div class="col-sm-4">
+          <br>
+          
+        </div>
+      </div>
+      <h1 class="text-center">Eventos Registrados</h1>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search"  id="busqueda" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="buscar" onclick="buscar_evento()">Search</button>
+      </form>
+
+    
+    </nav>
+        <br>
+        <br>
+        <div class="jumbotron text-center jumbotron_color">
+            <center>
+                <div id="card_event" class="row">
+                </div>
+            </center>
+        </div>
+    </body>
+    <script async>
+        document.body.onload = getEventos();
+    </script>
+</html>

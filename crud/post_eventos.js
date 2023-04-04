@@ -1,5 +1,9 @@
 function Post_eventos() {
 
+
+    const token = sessionStorage.getItem('token');
+    console.log(token);
+
     let nombre = document.getElementById("nombre");
     let fecha  = document.getElementById("fecha");
     let hora   = document.getElementById("hora");
@@ -8,25 +12,6 @@ function Post_eventos() {
     let precio = document.getElementById("precio");
 
     const img = document.getElementById("blah");
- 
-    //const file = document.getElementById("imagen").files[0];
-    //const nombreImage = file.name;
-    
-    //const imag_nombre = file.name.split(".")[0];
-
-    //const imag_fecha = new Date().toISOString().slice(0, 19).replace('T', ' ');
-
-    //const destino = "/images/eventos/";
-    //const renomb_imag = imag_nombre +"-" + imag_fecha + ".jpg" ;
-    //console.log(renomb_imag);
-    //const ruta = destino + nombreImage;
-    //console.log(ruta);
-    //console.log(renomb_imag);
-
-    /*const storage = multer.diskStorage({
-        destination: destino,
-        filename: renomb_imag
-    });*/
 
 
     var ruta = img.src;
@@ -43,11 +28,13 @@ function Post_eventos() {
     }
 
 
-    console.log(payload);
+    //console.log(payload);
 
+    
     var request = new XMLHttpRequest(); 
     request.open('POST', "http://127.0.0.1:8000/eventos/",true);
     request.setRequestHeader("accept", "application/json");
+    request.setRequestHeader("Authorization", "Bearer " +token);
     request.setRequestHeader("Content-Type", "application/json");
 
     request.onload = () => {
@@ -59,7 +46,14 @@ function Post_eventos() {
         console.log("Status: " + status);
 
         if (request.status === 401 || request.status === 403) {
-            alert(json.detail);
+            Swal.fire({
+                title: "Error",
+                text: json.detail,
+                type: "error"
+            }).then(function() {
+                window.location = "/admin/templates/login.html";
+            }
+            );
         }
 
         else if (request.status == 202){
@@ -67,13 +61,13 @@ function Post_eventos() {
             console.log("Response: " + response);
             console.log("JSON: " + json);
             console.log("Status: " + status);
-
+            
             Swal.fire({
                 title: json.message,
                 text: "Redireccionando...",
                 type: "success"
             }).then(function() {
-                window.location = "/templates/eventos.html";
+                window.location = "admin/templates/eventos.html";
             });
         }
     };

@@ -71,40 +71,86 @@ firebaseConfig = {
 firebase = pyrebase.initialize_app(firebaseConfig)
 
 
-security = HTTPBasic()
+securityBasic  = HTTPBasic()
+securityBearer = HTTPBearer()
+
 
 #Autenticacion
-@app.post("/auth/", response_model=Respuesta)
-async def auth(credentials: HTTPBasicCredentials = Depends(security)):
+@app.post(
+    "/users/token",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Consigue un token para el usuario",
+    description="Consigue un token para el usuario",
+    tags=["auth"],
+)
+
+async def post_token(credentials: HTTPBasicCredentials = Depends(securityBasic)):
     try:
+        email = credentials.username
+        password = credentials.password
         auth = firebase.auth()
-        user = auth.sign_in_with_email_and_password(credentials.username, credentials.password)
-        response = {"message": "Autenticado"}
+        user = auth.sign_in_with_email_and_password(email, password)
+        #trae el level del usuario
+        db=firebase.database()
+        level = db.child("users").child(user["localId"]).child("level").get().val()
+        
+        response = {
+            "message": "Usuario autenticado",
+            "token": user["idToken"],
+            "level": level,
+            "code": status.HTTP_201_CREATED,
+        }
         return response
     except Exception as error:
         print(f"Error: {error}")
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="No tienes permiso para ver estos datos",
-            headers={"WWW-Authenticate": "Basic"},        
-        )
+        return(f"Error: {error}")
     
-#Registra un usuario
-@app.post("/register/", response_model=Respuesta)
-async def register(user: UserIN):
+#Crea un usuario en la base de datos firebase para clientes
+@app.post(  "/registro/",  
+    status_code=status.HTTP_202_ACCEPTED, 
+    summary="Crea un usuario para clientes",
+    description="Crea un usuario para clientes", 
+    tags=["auth"]
+)
+async def create_user(usuario: UserIN ):
     try:
         auth = firebase.auth()
-        user = auth.create_user_with_email_and_password(user.email, user.password)
-        response = {"message": "Usuario registrado"}
+        db=firebase.database()
+        user = auth.create_user_with_email_and_password(usuario.email, usuario.password)
+        uid = user["localId"]
+        db.child("users").child(uid).set({"email": usuario.email, "level": 0 })
+        response = {"code": status.HTTP_201_CREATED, "message": "Usuario creado"}
         return response
     except Exception as error:
         print(f"Error: {error}")
+        return(f"Error: {error}")
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="No tienes permiso para ver estos datos",
-            headers={"WWW-Authenticate": "Basic"},        
+            status_code=status.HTTP_400_BAD_REQUEST,
         )
     
+#Crea un usuario en la base de datos firebase para administradores
+@app.post(  "/users/",  
+    status_code=status.HTTP_202_ACCEPTED, 
+    summary="Crea un usuario para administradores",
+    description="Crea un usuario para administradores", 
+    tags=["auth"]
+)
+async def create_user(usuario: UserIN ):
+    try:
+        auth = firebase.auth()
+        db=firebase.database()
+        user = auth.create_user_with_email_and_password(usuario.email, usuario.password)
+        uid = user["localId"]
+        db.child("users").child(uid).set({"email": usuario.email, "level": 1, "nombre": "admin"})
+        response = {"code": status.HTTP_201_CREATED, "message": "Usuario creado"}
+        return response
+    except Exception as error:
+        print(f"Error: {error}")
+        return(f"Error: {error}")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+        )
+
 #Obtiene un usuario por su id
 @app.get(
     "/usuarios/{id_usuario}",
@@ -115,7 +161,7 @@ async def register(user: UserIN):
 async def get_usuarios(id_usuario: str):
     try:
         db=firebase.database()
-        usuario = db.child("Usuarios").child(id_usuario).get().val()
+        usuario = db.child("users").child(id_usuario).get().val()
         response = {
             "usuario": usuario
         }
@@ -128,7 +174,7 @@ async def get_usuarios(id_usuario: str):
             headers={"WWW-Authenticate": "Basic"},        
         )
     
-#Obtiene una lista de usuarios registrados
+#Obtiene una lista de usuarios
 @app.get(
     "/usuarios/",
     status_code=status.HTTP_202_ACCEPTED,
@@ -138,7 +184,7 @@ async def get_usuarios(id_usuario: str):
 async def get_usuarios():
     try:
         db=firebase.database()
-        usuarios = db.child("Usuarios").get().val()
+        usuarios = db.child("users").get().val()
         response = {
             "usuarios": usuarios
         }
@@ -151,6 +197,7 @@ async def get_usuarios():
             headers={"WWW-Authenticate": "Basic"},        
         )
     
+
 
 #Obtiene una lista de eventos registrados
 @app.get(
@@ -205,12 +252,27 @@ async def get_eventos(id_evento: str):
     description="Inserta un evento",
     tags=["auth"]
 )
-async def post_eventos(evento: Evento):
+async def post_eventos(evento: Evento, credentials: HTTPAuthorizationCredentials = Depends(securityBearer)):
     try:
+        auth = firebase.auth()
+        user = auth.get_account_info(credentials.credentials)
+        uid  = user["users"][0]["localId"]
         db=firebase.database()
-        db.child("Eventos").push({"Nombre": evento.Nombre, "Fecha": evento.Fecha, "Lugar": evento.Lugar, "Costo": evento.Costo, "Descripcion": evento.Descripcion, "Hora": evento.Hora, "Imagen": evento.Imagen})
-        response = {"code": status.HTTP_201_CREATED, "message": "Evento creado"}
-        return response
+        usuario = db.child("users").child(uid).get().val()
+        level = usuario["level"]
+        #print(usuario)
+        if  level == 1:
+            db.child("Eventos").push({"Nombre": evento.Nombre, "Fecha": evento.Fecha, "Lugar": evento.Lugar, "Costo": evento.Costo, "Descripcion": evento.Descripcion, "Hora": evento.Hora, "Imagen": evento.Imagen})
+            response = {
+                "code": status.HTTP_201_CREATED, 
+                "message": "Evento creado",
+                "level": level
+                }
+            return response
+        else:
+            detail="No tienes permiso para agregar eventos",
+            return detail
+   
     except Exception as error:
         print(f"Error: {error}")
         return(f"Error: {error}")
