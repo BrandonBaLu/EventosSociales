@@ -1,5 +1,5 @@
 function update_eventos() {
-
+    const token = sessionStorage.getItem('token');
     var id = window.location.search.substring(1);
     
    
@@ -38,8 +38,9 @@ function update_eventos() {
     
     var request = new XMLHttpRequest();
     request.open('PUT', "http://127.0.0.1:8000/eventos/",true);
-    request.setRequestHeader("Accept", "application/json");
-    request.setRequestHeader("content-type", "application/json");
+    request.setRequestHeader("accept", "application/json");
+    request.setRequestHeader("Authorization", "Bearer " +token);
+    request.setRequestHeader("Content-Type", "application/json");
     
     request.onload = () => {
         
@@ -49,7 +50,23 @@ function update_eventos() {
         console.log(json);
 
         if (request.status === 401 || request.status === 403) {
-            alert(json.detail);
+            Swal.fire({
+                title: "Error",
+                text: "No se ha iniciado sesión",
+                type: "error"
+            }).then(function() {
+                window.location = "/admin/templates/login.html";
+            });
+        }
+
+        else if (token == "" || token == null    || token == undefined) {
+            Swal.fire({
+                title: "Error",
+                text: "No se ha iniciado sesión",
+                type: "error"
+            }).then(function() {
+                window.location = "/admin/templates/login.html";
+            });
         }
 
         else if (request.status == 202){

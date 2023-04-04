@@ -289,14 +289,24 @@ async def post_eventos(evento: Evento, credentials: HTTPAuthorizationCredentials
     description="Actualiza un evento",
     tags=["auth"]
 )
-async def put_eventos(evento: EventoUpdate):
+async def put_eventos(evento: EventoUpdate, credentials: HTTPAuthorizationCredentials = Depends(securityBearer)):
     try:
+        auth = firebase.auth()
+        user = auth.get_account_info(credentials.credentials)
+        uid  = user["users"][0]["localId"]  
         db=firebase.database()
+        usuario = db.child("users").child(uid).get().val()
+        level = usuario["level"]
         id=evento.id_evento
-        print(id)
-        db.child("Eventos").child(id).update({"Nombre": evento.Nombre, "Fecha": evento.Fecha, "Lugar": evento.Lugar, "Costo": evento.Costo, "Descripcion": evento.Descripcion, "Hora": evento.Hora, "Imagen": evento.Imagen})
-        response = {"message":"Evento actualizado"}
-        return response
+        if  level == 1:
+            db.child("Eventos").child(id).update({"Nombre": evento.Nombre, "Fecha": evento.Fecha, "Lugar": evento.Lugar, "Costo": evento.Costo, "Descripcion": evento.Descripcion, "Hora": evento.Hora, "Imagen": evento.Imagen})
+            response = {
+                "message":"Evento actualizado"
+            }
+            return response
+        else:
+            detail="No tienes permiso para actualizar eventos",
+            return detail   
     except Exception as error:
         print(f"Error: {error}")
         raise HTTPException(
@@ -312,17 +322,25 @@ async def put_eventos(evento: EventoUpdate):
     description="Elimina un evento",
     tags=["auth"]
 )
-async def delete_eventos(id_evento: str):
+async def delete_eventos(id_evento: str, credentials: HTTPAuthorizationCredentials = Depends(securityBearer)):
     try:
+        auth = firebase.auth()
+        user = auth.get_account_info(credentials.credentials)
+        uid  = user["users"][0]["localId"]
         db=firebase.database()
-        id=id_evento
-        print(id)
-        db.child("Eventos").child(id).remove()
-        response = {"message":"Evento eliminado"}
-        return response
+        usuario = db.child("users").child(uid).get().val()
+        level = usuario["level"]
+        if  level == 1:
+            db.child("Eventos").child(id_evento).remove()
+            response = {
+                "message":"Evento eliminado"
+            }
+            return response
+        else:
+            detail="No tienes permiso para eliminar eventos",
+            return detail
     except Exception as error:
         print(f"Error: {error}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED           
         )
-

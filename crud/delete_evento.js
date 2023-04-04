@@ -1,9 +1,8 @@
 function delete_evento() {
+    const token = sessionStorage.getItem('token');
+    //console.log(token);
     var id = window.location.search.substring(1);
-    //Manda un swal alert, diciendo que si esta seguro de eliminar el evento, 
-    
 
-    //Manda un swal alert, diciendo que si esta seguro de eliminar el evento y si lo esta, lo elimina
 
     Swal.fire({
         title: "¿Estás seguro de eliminar el evento?",
@@ -18,15 +17,33 @@ function delete_evento() {
         if (result.value) {
             var request = new XMLHttpRequest();
             request.open("DELETE", "http://127.0.0.1:8000/eventos/" + id, true);
-            request.setRequestHeader("Accept", "application/json");
-            request.setRequestHeader("content-type", "application/json");
+            request.setRequestHeader("accept", "application/json");
+            request.setRequestHeader("Authorization", "Bearer " +token);
+            request.setRequestHeader("Content-Type", "application/json");
+        
             request.onload = () => {
                 const response = request.responseText;
                 const json = JSON.parse(response);
                 const status = request.status;
 
                 if (request.status === 401 || request.status === 403) {
-                    alert(json.detail);
+                    Swal.fire({
+                        title: "Error",
+                        text: json.detail,
+                        type: "error"
+                    }).then(function() {
+                        window.location = "/admin/templates/login.html";
+                    });
+                }
+
+                if (token == "" || token == null    || token == undefined) {
+                    Swal.fire({
+                        title: "Error",
+                        text: "No se ha iniciado sesión",
+                        type: "error"
+                    }).then(function() {
+                        window.location = "/admin/templates/login.html";
+                    });
                 }
 
                 else if (request.status == 202) {

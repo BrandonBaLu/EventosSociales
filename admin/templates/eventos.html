@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
-
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Eventos Registrados</title>
-        <meta name="description" content="Eventos Sociales" />
-        <meta name="author" content=" Citlaly SaLlome Ordoñez Romero & Brandon Balderas Lucas">
-        <link rel="shortcut icon" href="/images/logo.png" type="image/x-icon"> 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/css/style.css">
-        <script type="text/javascript" src="/crud/get_eventos_admin.js"></script>
-        
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Eventos Registrados</title>
+      <meta name="description" content="Eventos Sociales" />
+      <meta name="author" content=" Citlaly SaLlome Ordoñez Romero & Brandon Balderas Lucas">
+      <link rel="shortcut icon" href="/images/logo.png" type="image/x-icon"> 
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+      <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/css/font-awesome.min.css">
+      <link rel="stylesheet" href="/css/style.css">
+      <script type="text/javascript" src="/crud/get_eventos_admin.js"></script>
+      <script>
+        const token = sessionStorage.getItem('token');
+        if(token == null){
+          alert("No has iniciado sesión");
+          window.location.href = "/admin/templates/login.html";
+        }
+        </script>
     </head>
 
     <body>
