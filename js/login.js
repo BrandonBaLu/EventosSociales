@@ -22,7 +22,7 @@ function login(){
         const json1 = JSON.parse(response);
         console-console.log(json1);
         sessionStorage.setItem("token", json1.token);
-        sessionStorage.setItem("Level", json1.level);
+        //sessionStorage.setItem("Level", json1.level);
         
 
         var message1 = json1.message;

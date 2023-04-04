@@ -266,9 +266,9 @@ h1 {
   
   .narrow .demos {
     margin-top: env(titlebar-area-height, 0);
-  }
+}
   
-  .demos .grid {
+.demos .grid {
     display: grid;
     gap: var(--padding);
   
@@ -278,16 +278,32 @@ h1 {
     /* We set a font-size to 1/100th of the width so that demos can use the em unit to design things that adapt to the container size */
     /* 1em = 1% of the width */
     font-size: calc(var(--size) / 100);
-  }
+}
   
-  .demos .grid[zoom-level="small"] {
+.demos .grid[zoom-level="small"] {
     --size: 150px;
-  }
+}
   
-  .demos .grid[zoom-level="medium"] {
+.demos .grid[zoom-level="medium"] {
     --size: 200px;
-  }
+}
   
-  .demos .grid[zoom-level="large"] {
+.demos .grid[zoom-level="large"] {
     --size: 250px;
-  }
+}
+
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+.h-custom {
+    height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+    .h-custom {
+        height: 100%;
+    }
+}

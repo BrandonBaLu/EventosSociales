@@ -36,7 +36,7 @@ function delete_evento() {
                         confirmButtonText: "Aceptar"
                     }).then(result => {
                         if (result.value) {
-                            window.location.href = "/admin/eventos.html";
+                            window.location.href = "/admin/templates/eventos.html";
                         }
                     });
                 }
