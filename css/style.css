@@ -1,27 +1,27 @@
 /*color del navbar y que sea mas grande*/
 .navbar-default {
-    font-family: 'Forte';
-    background-color: #090a46;
-    font-family: 'Forte';
+    font-family: 'Rathskeller Free';
+    background-color: #0A0908;
+    font-family: 'Rathskeller Free';
     border-color: #0e0375;
     height: 100px;
 }
 
 /*botones en una misma posicion*/
 .boton_position{
-    font-family: 'Forte';
+    font-family: 'Rathskeller Free';
     position: absolute;
 }
 
 /*card del mismo tamaño/*/
 .card1 {
-    font-family: 'Alegreya Sans SC';
+    font-family: 'Rathskeller Free';
     width: 100%;
     height: 44rem;
 }
 
 .letras{
-    font-family: 'Forte';
+    font-family: 'Rathskeller Free';
     color: #d1320a;
     font-weight: 700;
     font-size: 20px;
@@ -30,8 +30,8 @@
 
 /*fondo para jumbotron*/ 
 .jumbotron_color {
-    font-family: 'Forte';
-    background-color: #03288d;
+    font-family: 'Rathskeller Free';
+    background-color: #1995AD;
     color: #ffffff;
     padding: 30px 15px;
     margin-bottom: 30px;
@@ -39,8 +39,8 @@
 }
 /*fondo para jumbotron cards*/
 .jumbotron_color2 {
-    font-family: 'Forte';
-    background-color: #2684cb;
+    font-family: 'Rathskeller Free';
+    background-color: #A1D6E2;
     color: #ffffff;
     padding: 30px 15px;
     margin-bottom: 30px;
@@ -48,8 +48,8 @@
 }
 /*fondo para jumbotron index*/
 .jumbotron_color3 {
-    font-family: 'Forte';
-    background-color: #032166;
+    font-family: 'Rathskeller Free';
+    background-color: #1995AD;
     color: #ffffff;
     padding: 30px 15px;
     margin-bottom: 30px;
@@ -157,12 +157,19 @@
   
 h5 {
     margin-top: 1rem;
+    color: #0745a2e9;
+    font-weight: 100;
 }
 
 /*letras en negritas y color blanco*/
 h1 {
     font-weight: 700;
     color: #f00a0a;
+}
+
+h3{
+    font-weight: 200;
+    color: #154da1e1;
 }
 
 .titulos {
@@ -203,13 +210,13 @@ h1 {
 
 .parrafos{
     font-size: 15px;
-    color: #ffffff;
+    color: #375E97;
     font-weight: 50;
     text-align: left;
 }
 
 .card_color{
-    background-color: #2684cb
+    background-color: #A1D6E2
 }
 
 /*#title-bar {
@@ -306,4 +313,8 @@ h1 {
     .h-custom {
         height: 100%;
     }
+}
+
+.jumbotron_ver {
+    background-color: #1995AD;
 }
